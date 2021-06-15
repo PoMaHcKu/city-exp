@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
-import java.util.function.Supplier;
 
 import static com.example.cityexplorer.util.ExceptionUtils.createException;
 
@@ -36,14 +35,7 @@ public class CityService implements ICityService {
     @Override
     @Transactional
     public City update(City updated) {
-        final Supplier<? extends RuntimeException> ex = createException(
-                IllegalArgumentException.class,
-                "Unable to update unsaved entity");
-
-        if (updated.getId() == null) {
-            throw ex.get();
-        }
-        cityRepository.findById(updated.getId()).orElseThrow(ex);
+        throwIfNotExist(updated.getId(), cityRepository);
         return cityRepository.save(updated);
     }
 

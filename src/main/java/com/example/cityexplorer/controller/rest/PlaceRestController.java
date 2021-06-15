@@ -1,31 +1,36 @@
 package com.example.cityexplorer.controller.rest;
 
-import com.example.cityexplorer.model.Place;
-import com.example.cityexplorer.service.IPlaceService;
+import com.example.cityexplorer.dto.PlaceDto;
+import com.example.cityexplorer.facade.PlaceFacade;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("place")
 public class PlaceRestController {
 
-    private final IPlaceService placeService;
+    private final PlaceFacade placeFacade;
 
-    public PlaceRestController(IPlaceService placeService) {
-        this.placeService = placeService;
+    public PlaceRestController(PlaceFacade placeFacade) {
+        this.placeFacade = placeFacade;
     }
 
     @GetMapping("{id}")
-    public Place get(@PathVariable Long id) {
-        return placeService.get(id);
+    public PlaceDto get(@PathVariable Long id) {
+        return placeFacade.get(id);
     }
 
     @PostMapping
-    public Place create(@RequestBody Place city) {
-        return placeService.create(city);
+    public PlaceDto create(@RequestBody PlaceDto place) {
+        return placeFacade.create(place);
+    }
+
+    @PatchMapping
+    public PlaceDto update(@RequestBody PlaceDto place) {
+        return placeFacade.update(place);
     }
 
     @DeleteMapping("{id}")
     public void delete(@PathVariable Long id) {
-        placeService.delete(id);
+        placeFacade.delete(id);
     }
 }

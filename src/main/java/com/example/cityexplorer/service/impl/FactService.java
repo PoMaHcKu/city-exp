@@ -6,8 +6,8 @@ import com.example.cityexplorer.service.IFactService;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
-import java.security.InvalidParameterException;
-import java.util.Objects;
+
+import static com.example.cityexplorer.util.ExceptionUtils.createException;
 
 @Service
 public class FactService implements IFactService {
@@ -25,14 +25,12 @@ public class FactService implements IFactService {
 
     @Override
     public Fact get(Long id) {
-        return factRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        return factRepository.findById(id).orElseThrow(createException(EntityNotFoundException.class, "Not found"));
     }
 
     @Override
     public Fact update(Fact updated) {
-        if (Objects.isNull(updated.getId())) {
-            throw new InvalidParameterException("Updated entity must be with id");
-        }
+        throwIfNotExist(updated.getId(), factRepository);
         return factRepository.save(updated);
     }
 

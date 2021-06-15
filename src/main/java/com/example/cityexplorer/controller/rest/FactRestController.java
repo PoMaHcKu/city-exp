@@ -1,36 +1,36 @@
 package com.example.cityexplorer.controller.rest;
 
-import com.example.cityexplorer.model.Fact;
-import com.example.cityexplorer.service.IFactService;
+import com.example.cityexplorer.dto.FactDto;
+import com.example.cityexplorer.facade.FactFacade;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("fact")
 public class FactRestController {
 
-    private final IFactService factService;
+    private final FactFacade factFacade;
 
-    public FactRestController(IFactService factService) {
-        this.factService = factService;
+    public FactRestController(FactFacade factFacade) {
+        this.factFacade = factFacade;
     }
 
     @GetMapping("{id}")
-    public Fact get(@PathVariable Long id) {
-        return factService.get(id);
+    public FactDto get(@PathVariable Long id) {
+        return factFacade.get(id);
     }
 
     @PostMapping
-    public Fact create(@RequestBody Fact fact) {
-        return factService.create(fact);
+    public FactDto create(@RequestBody FactDto fact) {
+        return factFacade.create(fact);
     }
 
     @PatchMapping
-    public Fact update(@RequestBody Fact fact) {
-        return factService.update(fact);
+    public FactDto update(@RequestBody FactDto fact) {
+        return factFacade.update(fact);
     }
 
     @DeleteMapping("{id}")
     public void delete(@PathVariable Long id) {
-        factService.delete(id);
+        factFacade.delete(id);
     }
 }
