@@ -42,6 +42,11 @@ public class ExceptionHandlerController {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(value = {Exception.class})
+    public ResponseEntity<String> handleAnyException(Exception exception) {
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
     private Function<ConstraintViolation<?>, String> constraintViolationToErrMessage() {
         return constraint -> String.format("%s: %s - %s", constraint.getRootBeanClass().getName(),
                 constraint.getPropertyPath().toString(), constraint.getMessage());
