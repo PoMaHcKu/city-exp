@@ -24,6 +24,11 @@ public class FactRestController {
         return factService.create(fact);
     }
 
+    @PatchMapping
+    public Fact update(@RequestBody Fact fact) {
+        return factService.update(fact);
+    }
+
     @DeleteMapping("{id}")
     public void delete(@PathVariable Long id) {
         factService.delete(id);

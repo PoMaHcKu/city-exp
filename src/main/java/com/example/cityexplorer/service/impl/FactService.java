@@ -6,6 +6,8 @@ import com.example.cityexplorer.service.IFactService;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.security.InvalidParameterException;
+import java.util.Objects;
 
 @Service
 public class FactService implements IFactService {
@@ -28,8 +30,10 @@ public class FactService implements IFactService {
 
     @Override
     public Fact update(Fact updated) {
-        //todo
-        return null;
+        if (Objects.isNull(updated.getId())) {
+            throw new InvalidParameterException("Updated entity must be with id");
+        }
+        return factRepository.save(updated);
     }
 
     @Override

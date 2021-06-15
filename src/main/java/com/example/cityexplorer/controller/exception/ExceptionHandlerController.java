@@ -22,7 +22,7 @@ public class ExceptionHandlerController {
         if (errMessage == null || errMessage.isBlank()) {
             errMessage = "Entity not found";
         }
-        return new ResponseEntity<>(errMessage, HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(errMessage, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(value = {ConstraintViolationException.class})
@@ -35,6 +35,11 @@ public class ExceptionHandlerController {
     @ExceptionHandler(HibernateException.class)
     public ResponseEntity<String> handleHibernateException(HibernateException ex) {
         return new ResponseEntity<>(ex.getLocalizedMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(value = {IllegalArgumentException.class})
+    public ResponseEntity<String> handleParametersException(IllegalArgumentException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
     private Function<ConstraintViolation<?>, String> constraintViolationToErrMessage() {
