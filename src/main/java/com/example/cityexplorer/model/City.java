@@ -1,11 +1,6 @@
 package com.example.cityexplorer.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +23,6 @@ public class City extends PersistObject<Long> {
         this.name = name;
     }
 
-    @JsonIgnore
     @OneToMany(mappedBy = "city")
     public List<Place> getPlaces() {
         return places;

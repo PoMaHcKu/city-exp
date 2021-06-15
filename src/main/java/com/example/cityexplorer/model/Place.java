@@ -39,7 +39,6 @@ public class Place extends PersistObject<Long> {
         this.city = city;
     }
 
-    @JsonIgnore
     @OneToMany(mappedBy = "place")
     public List<Fact> getFacts() {
         return facts;
