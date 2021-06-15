@@ -23,7 +23,7 @@ public class City extends PersistObject<Long> {
         this.name = name;
     }
 
-    @OneToMany(mappedBy = "city")
+    @OneToMany(mappedBy = "city", cascade = CascadeType.REMOVE)
     public List<Place> getPlaces() {
         return places;
     }

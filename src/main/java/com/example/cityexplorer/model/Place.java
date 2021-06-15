@@ -1,7 +1,5 @@
 package com.example.cityexplorer.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -39,7 +37,7 @@ public class Place extends PersistObject<Long> {
         this.city = city;
     }
 
-    @OneToMany(mappedBy = "place")
+    @OneToMany(mappedBy = "place", cascade = CascadeType.REMOVE)
     public List<Fact> getFacts() {
         return facts;
     }
