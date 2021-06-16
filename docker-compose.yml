@@ -1,0 +1,7 @@
+version: "3.9"
+services:
+  bot:
+    build:
+      context: ./
+      dockerfile: ./src/main/resources/Dockerfile
+    container_name: bot
