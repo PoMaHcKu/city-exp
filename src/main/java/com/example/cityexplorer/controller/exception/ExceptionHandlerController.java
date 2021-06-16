@@ -1,5 +1,6 @@
 package com.example.cityexplorer.controller.exception;
 
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.HibernateException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
@@ -19,7 +20,7 @@ public class ExceptionHandlerController {
     @ExceptionHandler(value = {EntityNotFoundException.class, EmptyResultDataAccessException.class})
     public ResponseEntity<String> handleNotExistEntity(RuntimeException ex) {
         String errMessage = ex.getMessage();
-        if (errMessage == null || errMessage.isBlank()) {
+        if (StringUtils.isBlank(errMessage)) {
             errMessage = "Entity not found";
         }
         return new ResponseEntity<>(errMessage, HttpStatus.BAD_REQUEST);

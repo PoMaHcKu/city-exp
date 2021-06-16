@@ -48,4 +48,9 @@ public class CityService implements ICityService {
     public List<City> getAll() {
         return cityRepository.findAll();
     }
+
+    @Override
+    public City findByName(String name) {
+        return cityRepository.findByNameIgnoreCase(name).orElseThrow(EntityNotFoundException::new);
+    }
 }

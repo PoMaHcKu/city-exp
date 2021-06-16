@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface ICityService extends CommonService<City, Long> {
     List<City> getAll();
+
+    City findByName(String name);
 }
